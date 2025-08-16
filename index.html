@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Untuk Caca — dari Abi</title>
+  <meta name="description" content="Situs bucin sederhana dan manis untuk Caca dari Abi" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#ffdde1; /* peach */
+      --bg2:#ee9ca7; /* rose */
+      --card:#ffffffee;
+      --txt:#2b2b2b;
+      --accent:#ff4d6d;
+      --accent2:#ff8fab;
+      --soft:#fff5f7;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color:var(--txt);
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    .container{max-width:980px;margin:0 auto;padding:24px}
+    .hero{
+      position:relative;
+      margin-top:32px;
+      background:radial-gradient(1200px 400px at 50% -200px, #ffffff66, transparent), var(--card);
+      border-radius:28px;
+      padding:42px 28px;
+      box-shadow:0 20px 60px rgba(255,77,109,.25);
+      backdrop-filter: blur(6px);
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      background:var(--soft);
+      color:#ff4d6d;
+      border-radius:999px;
+      font-weight:600;
+      font-size:12px;
+      letter-spacing:.4px;
+      box-shadow:0 8px 20px rgba(255,77,109,.15);
+    }
+    h1{
+      margin:12px 0 10px;
+      font-size:44px;
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+    .type{color:var(--accent)}
+    .sub{opacity:.8;margin:6px 0 18px}
+    .cta{
+      display:flex;gap:12px;flex-wrap:wrap;margin-top:14px
+    }
+    button, .btn{
+      border:0; cursor:pointer; text-decoration:none; color:white; font-weight:700;
+      background:linear-gradient(135deg,var(--accent),#ff6b86);
+      padding:12px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(255,77,109,.35);
+      transition:.2s transform ease, .2s box-shadow ease, filter .2s ease;
+    }
+    button:hover,.btn:hover{transform:translateY(-2px); box-shadow:0 14px 34px rgba(255,77,109,.45)}
+    .btn.secondary{background:#111;color:#fff;box-shadow:0 10px 30px rgba(17,17,17,.25)}
+
+    /* floating hearts */
+    .hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .heart{position:absolute;bottom:-40px;font-size:18px;opacity:.8;animation:float var(--dur) linear infinite;filter:drop-shadow(0 6px 10px rgba(255,77,109,.45))}
+    @keyframes float{0%{transform:translateY(0) scale(1)} 100%{transform:translateY(-120vh) scale(1.6);opacity:0}}
+
+    .section{margin:28px 0}
+    .card{background:var(--card);padding:22px;border-radius:22px;box-shadow:0 16px 45px rgba(0,0,0,.08)}
+    .grid{display:grid;gap:16px}
+    @media(min-width:760px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+
+    .list{margin:0;padding:0;list-style:none}
+    .list li{display:flex;gap:10px;align-items:flex-start;padding:10px 0}
+    .list li span.em{font-size:20px}
+
+    .gallery{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+    @media(min-width:760px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .gallery .ph{
+      aspect-ratio:1/1; background:var(--soft); border:2px dashed #ffb3c1; border-radius:18px;
+      display:grid; place-items:center; font-weight:600; color:#ff4d6d; text-align:center; padding:10px
+    }
+    .timeline{border-left:3px solid #ffd6de; padding-left:16px}
+    .timeline .item{position:relative;margin:10px 0;padding-left:8px}
+    .timeline .item::before{content:"❤"; position:absolute; left:-28px; top:-2px; font-size:16px; color:var(--accent)}
+
+    .audio{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .audio small{opacity:.7}
+
+    .footer{margin:32px 0 60px; text-align:center; opacity:.8}
+
+    /* modal */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; place-items:center; padding:18px}
+    .modal .box{background:#fff; border-radius:20px; max-width:720px; width:100%; padding:24px; box-shadow:0 20px 60px rgba(0,0,0,.25)}
+    .modal .title{margin:0 0 8px; font-size:28px}
+    .modal .content{white-space:pre-line; line-height:1.7}
+    .modal .close{background:#111}
+
+    .blink{animation:blink 1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    a { color: #111; font-weight: 700; text-decoration: none; border-bottom: 2px solid #1111; }
+    a:hover { border-color: #111; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hearts" id="hearts"></div>
+      <span class="badge">Untuk Caca ❤️ dari Abi</span>
+      <h1>
+        <span id="type" class="type"></span><span class="blink">|</span>
+      </h1>
+      <p class="sub">Sebuah halaman kecil berisi hal-hal besar: rasa sayang, doa, dan janji sederhana yang ingin Abi tepati untuk Caca. 💌</p>
+      <div class="cta">
+        <button id="openLetter">Buka Surat</button>
+        <a class="btn secondary" href="#janji">Lihat Janji</a>
+      </div>
+    </header>
+
+    <section class="section grid cols-2">
+      <div class="card">
+        <h3 style="margin:0 0 6px">Hal-hal kecil yang bikin Abi jatuh cinta</h3>
+        <ul class="list">
+          <li><span class="em">✨</span> <div>Senyum Caca yang bisa meredakan lelah seharian penuh.</div></li>
+          <li><span class="em">🎧</span> <div>Cara Caca mendengarkan abi ketika berbicara, yang beneran dengerin bukan cuma nunggu giliran bicara.</div></li>
+          <li><span class="em">🍜</span> <div>nonton bareng dan itu seru banget kalo nonton bareng kamu karna ada aja yang di bahas 🤭</div></li>
+          <li><span class="em">🌧️</span> <div>ketika ngobrol santai sambil makan bareng</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 6px">Playlist kita</h3>
+        <div class="audio">
+          <audio id="player" controls loop>
+            <!-- Ganti src di bawah dengan file mp3 favorit kalian, contoh: lagu-kita.mp3 -->
+            <source src="terbuang-dalam-waktu.mp3" type="audio/mp3">
+            Browser kamu tidak mendukung audio.
+          </audio>
+          <small>Pesan : Lagu nya bisa di ubah sesuai kemauan kamu, buat sekarang lagu ini dulu soalnya kamu lagi suka sama SORE</code>.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section card" id="galeri">
+      <h3 style="margin-top:0">Galeri kecil kita</h3>
+      <p style="margin-top:0">Ganti kotak di bawah ini dengan foto favorit Caca & Abi (cukup tarik-lepas ke sini lalu pilih file).</p>
+      <div class="gallery" id="gallery">
+        <label class="ph">Tarik foto ke sini<input type="file" accept="image/*" hidden></label>
+        <label class="ph">Tarik foto ke sini<input type="file" accept="image/*" hidden></label>
+        <label class="ph">Tarik foto ke sini<input type="file" accept="image/*" hidden></label>
+        <label class="ph">Tarik foto ke sini<input type="file" accept="image/*" hidden></label>
+      </div>
+    </section>
+
+    <section class="section card" id="janji">
+      <h3 style="margin:0 0 6px">Janji sederhana Abi buat Caca</h3>
+      <ul class="list">
+        <li><span class="em">🫶</span> <div>Menjadi tempat pulang yang hangat — tiap hari, bukan hanya saat senang.</div></li>
+        <li><span class="em">🗓️</span> <div>Menyisihkan waktu khusus untuk <i>mendengarkan kamu</i> tiap hari, walau sekedar cerita mengenai apapun.</div></li>
+        <li><span class="em">📱</span> <div>Tidak menghilang. Kalau sibuk, kasih kabar. Kalau lelah, jujur. Kalau rindu, bilang.</div></li>
+        <li><span class="em">🌱</span> <div>Bertumbuh bareng — belajar sabar, menerima, dan memperbaiki diri, pelan-pelan tapi pasti.</div></li>
+      </ul>
+    </section>
+
+    <section class="section grid cols-2">
+      <div class="card">
+        <h3 style="margin-top:0">Timeline kenangan</h3>
+        <div class="timeline">
+          <div class="item"><b>Pertama kali chat</b> — deg-degan tapi pura-pura biasa aja.</div>
+          <div class="item"><b>saat main bareng</b> — suka senyum sendiri kalo kamu bahagia.</div>
+          <div class="item"><b>Foto favorit</b> — suka semua foto mu terutama yang ada senyumannya</div>
+          <div class="item"><b>Mimpi bareng</b> — pelan-pelan kita wujudkan.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Kontak darurat kangen</h3>
+        <p style="margin:0 0 8px">Kalau kangen banget:
+          <br>👉 <a href="https://wa.me/082244467228" target="_blank" rel="noreferrer">Chat Abi sekarang</a>
+        </p>
+        <p style="margin:0">Atau tinggalkan pesan di sini:</p>
+        <form onsubmit="event.preventDefault(); loveMsg();">
+          <input required id="msg" placeholder="Tulis pesan manis buat Abi" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid #ffd6de;margin:10px 0;outline:none">
+          <button>Kirim</button>
+        </form>
+        <div id="msgOut" style="margin-top:10px; font-weight:600; color:var(--accent)"></div>
+      </div>
+    </section>
+
+    <p class="footer">Dibuat dengan sepenuh hati oleh Abi untuk Caca. ✨</p>
+  </div>
+
+  <!-- Modal Surat -->
+  <div class="modal" id="modal">
+    <div class="box">
+      <h3 class="title">Surat untuk Caca 💌</h3>
+      <div class="content" id="letter">
+Caca yang Abi sayang,
+
+Terima kasih sudah hadir dan bikin hari-hari Abi jadi lebih ringan. Abi mungkin nggak selalu sempurna, tapi Abi mau belajar untuk jadi versi yang lebih baik — buat kita.
+
+Kalau suatu hari dunia terasa terlalu bising, mari kita kecilkan volumenya dan bicara pelan-pelan. Kalau capek, kita istirahat bareng. Kalau sedih, kita peluk sebentar, lalu lanjut jalan lagi.
+
+Abi sayang Caca — hari ini, besok, dan seterusnya. 🤍
+
+Dan Juga Aku Minta Maaf Sama Live kamu kemarin ya, karna aku kamu jadi gak bisa di gift dan badmood itu memang murni kesalahan ku yang tidak mendengar perkataan mu , masih nyoba pakai auto cliker walau sudah di bilangin untuk tidak pakai itu, oleh karna itu aku minta maaf kepada kamuu 🤍
+      </div>
+      <div style="display:flex; gap:10px; margin-top:16px">
+        <button class="close" id="closeModal">Tutup</button>
+        <button onclick="confetti()">Kasih Konfeti 🎉</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti" style="position:fixed; inset:0; pointer-events:none; display:none"></canvas>
+
+  <script>
+    // Typewriter
+    const lines = [
+      "Hai Caca,",
+      "Abi punya sesuatu buat kamu.",
+      "Sederhana, tapi dari hati. ❤️"
+    ];
+    const el = document.getElementById('type');
+    let li = 0, ci = 0;
+    function tick(){
+      if(li >= lines.length){return}
+      el.textContent = lines[li].slice(0, ++ci);
+      if(ci === lines[li].length){ li++; ci = 0; setTimeout(tick, 900); }
+      else { setTimeout(tick, 40 + Math.random()*40); }
+    }
+    tick();
+
+    // Hearts generator
+    const hearts = document.getElementById('hearts');
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = Math.random() > .5 ? '❤' : '💖';
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.setProperty('--dur', (6 + Math.random()*6) + 's');
+      h.style.fontSize = (14 + Math.random()*22) + 'px';
+      hearts.appendChild(h);
+      setTimeout(()=> h.remove(), 12000);
+    }
+    setInterval(spawnHeart, 400);
+
+    // Modal logic
+    const modal = document.getElementById('modal');
+    document.getElementById('openLetter').onclick = ()=> modal.style.display = 'grid';
+    document.getElementById('closeModal').onclick = ()=> modal.style.display = 'none';
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display = 'none'; });
+
+    // Simple confetti
+    function confetti(){
+      const c = document.getElementById('confetti');
+      c.style.display = 'block';
+      const ctx = c.getContext('2d');
+      const W = c.width = innerWidth; const H = c.height = innerHeight;
+      const pieces = Array.from({length: 200}, ()=>({
+        x: Math.random()*W,
+        y: Math.random()*-H,
+        r: 2 + Math.random()*5,
+        d: 1 + Math.random()*2,
+        a: Math.random()*Math.PI,
+        s: 1 + Math.random()*2
+      }));
+      let t = 0;
+      const id = setInterval(()=>{
+        ctx.clearRect(0,0,W,H);
+        t += 0.01;
+        for(const p of pieces){
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = `hsl(${(p.x+p.y)%360} 90% 60%)`;
+          ctx.fill();
+          p.y += p.d + Math.cos(p.a + t);
+          p.x += Math.sin(p.a) * p.s;
+          if(p.y > H){ p.y = -10; p.x = Math.random()*W; }
+        }
+      }, 16);
+      setTimeout(()=>{ clearInterval(id); c.style.display='none'; }, 2500);
+    }
+
+    // Gallery uploader (drag & drop or click)
+    function makeUpload(label){
+      const input = label.querySelector('input[type=file]');
+      label.addEventListener('click', ()=> input.click());
+      input.addEventListener('change', ()=> handleFile(input.files[0], label));
+
+      label.addEventListener('dragover', e=>{ e.preventDefault(); label.style.background = '#ffe3ea'; });
+      label.addEventListener('dragleave', ()=>{ label.style.background = 'var(--soft)'; });
+      label.addEventListener('drop', e=>{
+        e.preventDefault(); label.style.background = 'var(--soft)';
+        const file = e.dataTransfer.files[0];
+        handleFile(file, label);
+      });
+    }
+    function handleFile(file, label){
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      const img = document.createElement('img');
+      img.src = url; img.alt = 'Kenangan kita';
+      img.style.width = '100%'; img.style.height='100%'; img.style.objectFit='cover'; img.style.borderRadius='16px';
+      label.replaceWith(img);
+    }
+    document.querySelectorAll('.gallery .ph').forEach(makeUpload);
+
+    // Message form
+    function loveMsg(){
+      const v = document.getElementById('msg').value.trim();
+      if(!v) return;
+      const out = document.getElementById('msgOut');
+      out.textContent = 'Pesan terkirim: "' + v + '" — Abi senang banget bacanya!';
+      document.getElementById('msg').value='';
+      confetti();
+    }
+    window.loveMsg = loveMsg;
+  </script>
+</body>
+</html>
